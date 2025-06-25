@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - PlanNest</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #1a001f, #3c0066);
+      font-family: Arial, sans-serif;
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 420px;
+      background-color: #2d0144;
+      padding: 35px 30px;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      color: white;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    label {
+      font-size: 14px;
+    }
+
+    input {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 12px;
+      border-radius: 5px;
+      background-color: #6f42c1;
+      color: white;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+
+    .back-link {
+      text-align: center;
+      margin-top: 15px;
+      display: block;
+      color: #ccc;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login to PlanNest</h2>
+
+    {% if message %}
+      <script>alert("{{ message }}");</script>
+    {% endif %}
+
+    <form method="post">
+      {% csrf_token %}
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username" />
+
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" />
+
+      <button type="submit">Login</button>
+    </form>
+
+    <a href="/" class="back-link">Back to Home</a>
+  </div>
+</body>
+</html>

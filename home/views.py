@@ -1,17 +1,58 @@
 from django.shortcuts import render, redirect
 from .forms import SignUpForm
 from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 def landing(request):
-    return render(request, 'home/landing.html')
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+    return render(request, 'landing/landing.html')
 
-def signup(request):
+def signup_view(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard')
     if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Account created successfully! You can now log in.')
-            return redirect('landing')
-    else:
-        form = SignUpForm()
-    return render(request, 'home/signup.html', {'form': form})
+        username = request.POST.get('username', '').strip()
+        email = request.POST.get('email', '').strip()
+        password = request.POST.get('password', '').strip()
+        confirm_password = request.POST.get('confirm_password', '').strip()
+
+        if User.objects.filter(username=username).exists():
+            return render(request, 'landing/signup.html', {'message': 'Username already taken!'})
+        elif User.objects.filter(email=email).exists():
+            return render(request, 'landing/signup.html', {'message': 'Email already registered!'})
+        elif password != confirm_password:
+            return render(request, 'landing/signup.html', {'message': 'Passwords do not match!'})
+        else:
+            user = User.objects.create_user(username=username, email=email, password=password)
+            return redirect('login')  # Redirect to login page after success
+
+    return render(request, 'landing/signup.html')
+
+def login_view(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+    if request.method == 'POST':
+        username = request.POST.get('username', '').strip()
+        password = request.POST.get('password', '').strip()
+
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('dashboard')  # change this to your dashboard/home page
+        else:
+            return render(request, 'landing/login.html', {'message': 'Invalid credentials!'})
+
+    return render(request, 'landing/login.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
+
+@login_required
+def dashboard_view(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    return render(request, 'main/dashboard.html')
