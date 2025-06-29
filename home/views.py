@@ -4,6 +4,8 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.utils.timezone import now
+from .models import Task
 
 def landing(request):
     if request.user.is_authenticated:
@@ -53,6 +55,13 @@ def logout_view(request):
 
 @login_required
 def dashboard_view(request):
-    if not request.user.is_authenticated:
-        return redirect('login')
-    return render(request, 'main/dashboard.html')
+    selected_date = request.GET.get('date')
+    if selected_date:
+        tasks = Task.objects.filter(user=request.user, due_date=selected_date)
+    else:
+        tasks = Task.objects.filter(user=request.user)
+
+    return render(request, 'main/dashboard.html', {
+        'now': now(),
+        'tasks': tasks
+    })

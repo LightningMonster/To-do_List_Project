@@ -3,6 +3,56 @@
 {% block title %}My Dashboard - PlanNest{% endblock %}
 
 {% block content %}
-  <h1>Welcome, {{ request.user.username }}!</h1>
-  <p>This is your dashboard where your tasks or widgets will appear.</p>
+  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+    <h1>Welcome, {{ request.user.username }}!</h1>
+    <div id="local-time" style="font-size: 1rem; color: #ccc; text-align: right;"></div>
+  </div>
+
+  <!-- Task Card -->
+  <div style="margin-top: 30px;">
+    <div style="background-color: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+        <h3 style="margin: 0;">📝 Your Tasks</h3>
+        <form method="GET">
+          <label for="task-date" style="color: #ccc; font-size: 0.9rem;">Filter by Date:</label>
+          <input type="date" id="task-date" name="date" value="{{ request.GET.date }}" style="padding: 6px 10px; border-radius: 6px; border: none; outline: none;">
+          <button type="submit" style="padding: 6px 12px; background-color: #6f42c1; color: white; border: none; border-radius: 6px; cursor: pointer;">Filter</button>
+        </form>
+      </div>
+
+      <ul style="margin-top: 20px; list-style: none; padding-left: 0;">
+        {% if tasks %}
+          {% for task in tasks %}
+            <li style="margin-bottom: 12px; padding: 10px; background-color: rgba(255,255,255,0.08); border-radius: 6px;">
+              <strong>{{ task.title }}</strong><br>
+              <small style="color: #ccc;">Due: {{ task.due_date }}</small>
+            </li>
+          {% endfor %}
+        {% else %}
+          <li style="color: #aaa;">No tasks found for selected date.</li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+
+  <!-- JavaScript Clock -->
+  <script>
+    function updateTime() {
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('en-GB', {
+        weekday: 'short', day: '2-digit', month: 'short', year: 'numeric'
+      });
+      const timeStr = now.toLocaleTimeString('en-US', {
+        hour: '2-digit', minute: '2-digit', hour12: true
+      });
+
+      document.getElementById('local-time').innerHTML = `
+        <strong>${dateStr}</strong><br>
+        <span>${timeStr}</span>
+      `;
+    }
+
+    updateTime();
+    setInterval(updateTime, 60000);
+  </script>
 {% endblock %}
