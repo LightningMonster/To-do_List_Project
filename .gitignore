@@ -12,8 +12,6 @@ __pycache__/
 *.pyo
 *.db
 *.sqlite3
-media/
-staticfiles/
 
 # VSCode
 .vscode/
@@ -23,6 +21,9 @@ staticfiles/
 .venv/
 venv/
 ENV/
+ENV\
+venv\
+.venv\
 
 # OS
 .DS_Store
@@ -49,3 +50,9 @@ node_modules/
 
 # Ignore local settings
 local_settings.py
+
+# Static and media (for both OS)
+staticfiles/
+staticfiles\
+media/
+media\

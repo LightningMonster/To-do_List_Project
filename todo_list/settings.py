@@ -74,7 +74,10 @@ STATIC_URL = '/static/'
 # Use OS-agnostic static and template dirs
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'home', 'static'),
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 WSGI_APPLICATION = 'todo_list.wsgi.application'
 
 
