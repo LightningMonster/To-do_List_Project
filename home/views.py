@@ -65,3 +65,13 @@ def dashboard_view(request):
         'now': now(),
         'tasks': tasks
     })
+
+@login_required
+def tasks_view(request):
+    if not request.user.is_authenticated:
+        return redirect('dashboard')
+    return render(request, 'main/tasks.html')
+@login_required
+def expenses_view(request):
+    if not request.user.is_authenticated:
+        return redirect('main/expenses.html')
