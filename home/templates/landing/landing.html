@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PlanNest - Unleash Your Productivity</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background: linear-gradient(135deg, #1a001f, #3c0066);
+      height: 100vh;
+      margin: 0;
+      color: white;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      flex-direction: column;
+    }
+
+    /* Top Center Title */
+    .top-title {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    /* Login Button - Custom Purple */
+    .btn-custom-primary {
+      background-color: #6f42c1;
+      border: none;
+      color: white;
+    }
+
+    .btn-custom-primary:hover {
+      background-color: #5a32a3;
+    }
+
+    /* Sign Up Button - Glassy Outline */
+    .btn-custom-outline {
+      border: 2px solid #b88aff;
+      color: #ffffff;
+      background-color: transparent;
+    }
+
+    .btn-custom-outline:hover {
+      background-color: #b88aff;
+      color: #1a001f;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Center Title -->
+  <div class="top-title">PlanNest</div>
+
+  <!-- Main Centered Content -->
+  <div>
+    <h1 class="display-4 mb-4">Unleash Your Productivity</h1>
+    <p class="lead text-white-50 mb-5">
+      Transform chaos into clarity with PlanNest<br>
+      The next-generation task management platform that adapts to your workflow and amplifies your potential.
+    </p>
+    <a href="/login/" class="btn btn-custom-primary btn-lg me-3">Login</a>
+    <a href="/signup/" class="btn btn-custom-outline btn-lg">Sign up</a>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
