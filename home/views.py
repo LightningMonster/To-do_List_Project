@@ -71,7 +71,9 @@ def tasks_view(request):
     if not request.user.is_authenticated:
         return redirect('dashboard')
     return render(request, 'main/tasks.html')
+
 @login_required
 def expenses_view(request):
     if not request.user.is_authenticated:
-        return redirect('main/expenses.html')
+        return redirect('dashboard')
+    return render(request, 'main/expenses.html')

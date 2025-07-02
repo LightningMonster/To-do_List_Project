@@ -67,6 +67,13 @@ TEMPLATES = [
     },
 ]
 
+
+STATIC_URL = '/static/'
+
+# Absolute path to static files (optional, for collectstatic)
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 WSGI_APPLICATION = 'todo_list.wsgi.application'
 
 
